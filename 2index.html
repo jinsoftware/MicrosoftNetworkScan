@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Network Scan</title>
+    <style>
+        body {
+            background-color: black;
+            color: lime;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+        }
+        .terminal {
+            border: 2px solid lime;
+            padding: 20px;
+            width: 600px;
+            margin: auto;
+            overflow: auto;
+            height: 400px;
+            background-color: black;
+        }
+        .input-section {
+            margin-top: 20px;
+        }
+        input {
+            background: black;
+            color: lime;
+            border: 1px solid lime;
+            padding: 5px;
+            width: 250px;
+        }
+        button {
+            background: lime;
+            color: black;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <h2>Microsoft Network Scan</h2>
+    <div class="terminal" id="terminal">
+        <p>Initializing Microsoft Network Scan...</p>
+    </div>
+    <div class="input-section">
+        <label>Type your IP Address:</label>
+        <input type="text" id="ipAddress" placeholder="e.g. 192.168.1.1">
+        <button onclick="startScan()">Start Scan</button>
+    </div>
+
+    <script>
+        function startScan() {
+            let ip = document.getElementById("ipAddress").value;
+            if (!ip) {
+                alert("Please enter an IP address");
+                return;
+            }
+
+            let terminal = document.getElementById("terminal");
+            terminal.innerHTML = `<p>Scanning IP: ${ip}...</p>`;
+            
+            setTimeout(() => {
+                terminal.innerHTML += `<p>Location Found: City - New York, State - NY, Country - USA</p>`;
+            }, 2000);
+            
+            setTimeout(() => {
+                terminal.innerHTML += `<p>Scanning external access points...</p>`;
+            }, 4000);
+            
+            setTimeout(() => {
+                let hackers = "";
+                for (let i = 1; i <= 21; i++) {
+                    let hackerIP = `192.168.${i}.1`;
+                    let hackerName = `Hacker_${i}`;
+                    let hackerLocation = `Russia`;
+                    hackers += `<p>Hacker Found: ${hackerName} | IP: ${hackerIP} | Location: ${hackerLocation}</p>`;
+                }
+                terminal.innerHTML += hackers;
+            }, 6000);
+        }
+    </script>
+</body>
+</html>
