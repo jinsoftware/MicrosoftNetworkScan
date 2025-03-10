@@ -43,11 +43,22 @@
     </div>
     
     <script>
+        async function getIPLocation(ip) {
+            try {
+                let response = await fetch(`http://ip-api.com/json/${ip}`);
+                let data = await response.json();
+                if (data.status === "fail") return "Unknown Location";
+                return `${data.city}, ${data.regionName}, ${data.country}`;
+            } catch (error) {
+                return "Unknown Location";
+            }
+        }
+
         function getRandomItem(arr) {
             return arr[Math.floor(Math.random() * arr.length)];
         }
 
-        function runScan() {
+        async function runScan() {
             let ip = document.getElementById("ipAddress").value;
             if (!ip) {
                 alert("Please enter an IP address");
@@ -55,15 +66,16 @@
             }
 
             let scanResults = document.getElementById("scanResults");
-            scanResults.innerText = "Scanning IP: " + ip + "...\nPlease wait...";
+            scanResults.innerText = `Scanning IP: ${ip}...\nPlease wait...`;
+            
+            let location = await getIPLocation(ip);
             
             setTimeout(() => {
-                let locations = ["New York, USA", "Berlin, Germany", "Tokyo, Japan", "Moscow, Russia", "Paris, France", "Delhi, India", "Sydney, Australia", "Toronto, Canada", "London, UK", "Beijing, China"];
-                let city = getRandomItem(locations);
-                scanResults.innerText = `Scan Completed!\nLocation: ${city}\nIP Address: ${ip}\nAnalyzing unauthorized access...\n`;
+                scanResults.innerText = `Scan Completed!\nLocation: ${location}\nIP Address: ${ip}\nAnalyzing unauthorized access...\n`;
 
                 setTimeout(() => {
                     let hackers = ["ShadowDragon", "CyberGhost", "DarkPhantom", "CodeBreaker", "BlackWidow", "RedFox", "NightStalker", "QuantumX", "SilentPredator", "StormHawk", "GhostHacker", "WhiteRabbit", "ZeroX", "MindBreaker", "CryptoLord", "Venom", "DarkKnight", "Neo", "Specter", "GlitchMaster", "HackerMan"];
+                    let locations = ["New York, USA", "Berlin, Germany", "Tokyo, Japan", "Moscow, Russia", "Paris, France", "Delhi, India", "Sydney, Australia", "Toronto, Canada", "London, UK", "Beijing, China"];
                     
                     let hackerList = "Detected Unauthorized Access:\n";
                     for (let i = 0; i < 21; i++) {
